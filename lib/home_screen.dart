@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:core';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required this.title,required this.onPressed});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -13,6 +14,7 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final void Function()? onPressed;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -108,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 30),
               child: TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -116,14 +118,39 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+
+            Align(
+              alignment: Alignment.center,
+              child: OutlinedButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all<Size>(const Size(100,50)),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.deepPurple),
+                  overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.hovered)) {
+                        return Colors.blue.withOpacity(0.5);
+                      }
+                      if (states.contains(MaterialState.focused) ||
+                        states.contains(MaterialState.pressed)) {
+                        return Colors.blue.withOpacity(0.5);
+                      }
+                      return null; // Defer to the widget's default.
+                    },
+                  ),
+                ),
+                onPressed: widget.onPressed,
+                child: const Text(
+                    style: TextStyle(
+                      fontSize: 30
+                    ),
+                    "Log In"
+                ),
+            ),
+            ),
           ],
         ),
       ),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),*/ // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

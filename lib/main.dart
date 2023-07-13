@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:aad/home_screen.dart';
+import 'package:aad/order_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -24,7 +25,12 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.deepPurple,
       ),
-      home: const MyHomePage(title: 'Log In'),
+      home: Builder(builder: (context) => MyHomePage(title: 'Log In',onPressed: (){
+        Navigator.push(context,MaterialPageRoute(builder: (context){
+          return const OrderPage(title:'Orders');
+        }));
+      }),
+      ),
     );
   }
 }
