@@ -13,13 +13,13 @@ class NewOrder extends StatefulWidget {
   // always marked "final".
 
   final String title;
-
   @override
   State<NewOrder> createState() => _NewOrderState();
 }
 
 class _NewOrderState extends State<NewOrder> {
-
+  String jobTypeValue = 'Select job type';
+  String StatusValue = 'Select status';
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,8 @@ class _NewOrderState extends State<NewOrder> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(10, 15, 15, 0),
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
@@ -55,8 +56,92 @@ class _NewOrderState extends State<NewOrder> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const <Widget>[
-
+          children: <Widget>[
+            const Text(
+              'Name',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black
+              ),
+            ),
+            // Solid text as fill.
+            TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter full customer name',
+              ),
+            ),
+            const Text(
+              '\nPostcode',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black
+              ),
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter full postcode',
+              ),
+            ),
+            const Text(
+              '\nAddress',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black
+              ),
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Enter full address',
+              ),
+            ),
+            const Text(
+              '\nJob Type',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black
+              ),
+            ),
+             DropdownButtonFormField(
+                value: jobTypeValue,
+                items: const [
+                  DropdownMenuItem(child: Text('Select job type'), value:'Select job type'),
+                  DropdownMenuItem(child: Text('Chargeable'), value:'Chargeable'),
+                  DropdownMenuItem(child: Text('Trade'), value:'Trade'),
+                  DropdownMenuItem(child: Text('Recall'), value:'Recall'),
+                  DropdownMenuItem(child: Text('Chargeable for parts'), value:'Chargeable for parts'),
+                  DropdownMenuItem(child: Text('Trade for parts'), value:'Trade for parts')
+                ],
+                onChanged:  (String? newValue) {
+                  setState(() {
+                    jobTypeValue = newValue!;
+                  });
+                },
+            ),
+            const Text(
+              '\nStatus',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black
+              ),
+            ),
+            DropdownButtonFormField(
+              value: StatusValue,
+              items: const [
+                DropdownMenuItem(child: Text('Select status'), value:'Select status'),
+                DropdownMenuItem(child: Text('Arrived'), value:'Arrived'),
+                DropdownMenuItem(child: Text('Completed'), value:'Completed'),
+                DropdownMenuItem(child: Text('Estimate sent'), value:'Estimate sent'),
+                DropdownMenuItem(child: Text('Parts on order'), value:'Parts on order')
+              ],
+              onChanged:  (String? newValue) {
+                setState(() {
+                  StatusValue = newValue!;
+                });
+              },
+            ),
           ],
         ),
       ),
